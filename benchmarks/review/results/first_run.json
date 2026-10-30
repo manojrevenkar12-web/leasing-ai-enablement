@@ -1,0 +1,96 @@
+{
+  "recordedAt": "2026-10-30T15:36:12.668Z",
+  "reviewerCommit": "b18893d",
+  "base": "2401df5",
+  "model": "replay:claude-opus-5-5 via Claude Code subagent",
+  "lineTolerance": 3,
+  "cases": 24,
+  "scores": [
+    {
+      "mode": "rules only",
+      "defects": 18,
+      "caught": 3,
+      "recall": 16.7,
+      "comments": 4,
+      "correctComments": 3,
+      "precision": 75,
+      "commentsOnCleanPRs": 0,
+      "cleanPRsWithComments": 0,
+      "missed": [
+        "P-01:cache-key",
+        "P-03:money",
+        "P-04:ownership",
+        "P-05:logic",
+        "P-06:n-plus-one",
+        "P-08:sql-injection",
+        "P-11:validation",
+        "P-12:pricing-change",
+        "P-14:logic",
+        "P-16:sensitive-log",
+        "P-17:cache-key",
+        "P-18:ownership",
+        "P-20:money",
+        "P-22:validation",
+        "P-24:logic"
+      ]
+    },
+    {
+      "mode": "model only, no guardrails",
+      "defects": 18,
+      "caught": 17,
+      "recall": 94.4,
+      "comments": 19,
+      "correctComments": 17,
+      "precision": 89.5,
+      "commentsOnCleanPRs": 0,
+      "cleanPRsWithComments": 0,
+      "missed": [
+        "P-03:money"
+      ]
+    },
+    {
+      "mode": "model only, guardrails",
+      "defects": 18,
+      "caught": 16,
+      "recall": 88.9,
+      "comments": 18,
+      "correctComments": 16,
+      "precision": 88.9,
+      "commentsOnCleanPRs": 0,
+      "cleanPRsWithComments": 0,
+      "missed": [
+        "P-03:money",
+        "P-04:ownership"
+      ]
+    },
+    {
+      "mode": "rules + model, no guardrails",
+      "defects": 18,
+      "caught": 17,
+      "recall": 94.4,
+      "comments": 23,
+      "correctComments": 20,
+      "precision": 87,
+      "commentsOnCleanPRs": 0,
+      "cleanPRsWithComments": 0,
+      "missed": [
+        "P-03:money"
+      ]
+    },
+    {
+      "mode": "rules + model, guardrails (shipped)",
+      "defects": 18,
+      "caught": 16,
+      "recall": 88.9,
+      "comments": 19,
+      "correctComments": 16,
+      "precision": 84.2,
+      "commentsOnCleanPRs": 0,
+      "cleanPRsWithComments": 0,
+      "missed": [
+        "P-03:money",
+        "P-04:ownership"
+      ]
+    }
+  ]
+}
