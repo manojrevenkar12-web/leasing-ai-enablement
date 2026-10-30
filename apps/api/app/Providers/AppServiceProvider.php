@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading(! $this->app->isProduction());
         Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
 
-        DB::listen(fn (QueryExecuted $q) => $this->app->make(Telemetry::class)->query($q->time));
+        DB::listen(fn (QueryExecuted $q) => $this->app->make(Telemetry::class)->query((float) ($q->time ?? 0.0)));
 
         // Dealers authenticate with a bearer token; only its sha256 is stored.
         Auth::viaRequest('dealer-token', function (Request $request): ?Dealer {

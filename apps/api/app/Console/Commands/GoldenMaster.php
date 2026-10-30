@@ -114,9 +114,10 @@ class GoldenMaster extends Command
     {
         $fixture = json_decode((string) file_get_contents($fixturePath), true);
         $approved = json_decode((string) file_get_contents($approvedPath), true);
-        if (! is_array($fixture) || ! is_array($approved)) {
+        if (! is_array($fixture) || ! is_array($approved) || ! array_is_list($approved)) {
             throw new RuntimeException('Golden master fixture or approved changes unreadable');
         }
+        /** @var list<array<string, mixed>> $approved */
         $byChange = array_fill_keys(array_column($approved, 'id'), 0);
         $identical = 0;
         $explained = 0;

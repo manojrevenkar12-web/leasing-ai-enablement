@@ -8,3 +8,6 @@ parameters:
         - routes
     excludePaths:
         - legacy
+    # the legacy calculator is loaded on demand by the golden-master recorder
+    scanFiles:
+        - legacy/rate_calc.php
