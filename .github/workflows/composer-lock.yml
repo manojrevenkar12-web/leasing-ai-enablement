@@ -1,0 +1,31 @@
+name: composer-lock
+# Resolves apps/api/composer.json into composer.lock and commits it when composer.json changes, so
+# every install (CI, laptops, restricted build hosts) uses the same reviewed versions.
+on:
+  workflow_dispatch:
+  push:
+    paths: [apps/api/composer.json]
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '8.3', tools: composer:v2, coverage: none }
+      - name: Resolve
+        working-directory: apps/api
+        run: composer update --no-install --no-interaction --no-scripts
+      - name: Commit the lock if it changed
+        run: |
+          if git diff --quiet -- apps/api/composer.lock && git ls-files --error-unmatch apps/api/composer.lock >/dev/null 2>&1; then
+            echo "lock unchanged"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/api/composer.lock
+          git commit -m "Lock PHP dependencies for apps/api/composer.json"
+          git push

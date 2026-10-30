@@ -1,0 +1,12 @@
+{
+  "refactor_gate": {
+    "golden_master_unapproved_differences": 0,
+    "mutation_score_min_percent": 85,
+    "covered_mutation_score_min_percent": 90
+  },
+  "reviewer": {
+    "comment_must_cite_changed_line": true,
+    "max_comments_per_pr": 8,
+    "min_confidence": 0.6
+  }
+}

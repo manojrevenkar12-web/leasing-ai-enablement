@@ -1,0 +1,20 @@
+[
+  {
+    "id": "AC-1",
+    "title": "Business offers: leasing factor and total cost factor compare net to net",
+    "when": { "customer_type": "business" },
+    "allows": { "fields": ["leasing_factor", "total_cost_factor"] },
+    "why": "legacy/rate_calc.php divided the net business rate by the gross list price, so business offers showed a factor 19% lower than the rate justified and ranked above private offers they were no cheaper than. Rates themselves are unchanged.",
+    "found_by": "golden master, first verify run",
+    "approved_by": "pricing owner (sign-off recorded in docs/playbooks/ai-refactoring.md)"
+  },
+  {
+    "id": "AC-2",
+    "title": "Unsupported mileage is rejected instead of priced as 10,000 km",
+    "when": { "km_supported": false },
+    "allows": { "exception": "UnsupportedTerms" },
+    "why": "legacy/rate_calc.php fell back to the 10,000 km residual value for any mileage it did not know (\"TODO other km\"), which overstates the residual value and understates the rate. The API only offers supported mileages; the calculator now refuses the rest.",
+    "found_by": "golden master, first verify run",
+    "approved_by": "pricing owner (sign-off recorded in docs/playbooks/ai-refactoring.md)"
+  }
+]

@@ -1,0 +1,58 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "leasing-ai-enablement/api",
+    "type": "project",
+    "description": "Leasing offers API: search, quotes and dealer offers, with a characterised legacy rate calculator.",
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^13.17"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "infection/infection": "^0.29",
+        "larastan/larastan": "^3.4",
+        "laravel/pint": "^1.27",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^4.1",
+        "pestphp/pest-plugin-laravel": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "test": "@php artisan test",
+        "stan": "phpstan analyse --memory-limit=1G",
+        "mutate": "infection --threads=max --show-mutations --no-progress"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "infection/extension-installer": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

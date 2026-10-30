@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+apps/api/vendor/
+apps/api/.phpunit.result.cache
+apps/api/storage/infection*
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+test-results/
+playwright-report/
