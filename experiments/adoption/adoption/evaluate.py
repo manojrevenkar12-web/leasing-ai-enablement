@@ -48,6 +48,14 @@ def run(data: Path = ROOT / "data", reps: int = 200) -> dict:
         col = {"throughput": "throughput_effect", "rework": "rework_effect", "cycle_time": "cycle_time_effect"}[y]
         tes = truth_by_event_time(effects, col)
         results["event_study"][y] = [{"e": int(r.e), "estimate": float(r.relative), "truth": tes.get(int(r.e))} for r in es.itertuples()]
+    # The decision the playbook needs: did rework come down once the paved road was in place?
+    enable = json.loads((ROOT / "world.json").read_text())["true_effects"]["enablement_after_weeks"]
+    rows = results["event_study"]["rework"]
+    phase = lambda early: [r for r in rows if (r["e"] < enable) == early]  # noqa: E731
+    results["rework_phases"] = {
+        name: {"estimate": float(np.mean([r["estimate"] for r in phase(early)])), "truth": float(np.mean([r["truth"] for r in phase(early)]))}
+        for name, early in (("first weeks", True), ("after the paved road", False))
+    }
     results["errors"] = {
         y: {name: abs(v - true[y]) for name, v in results["estimates"][y].items()} for y in analysis.OUTCOMES
     }
@@ -75,6 +83,12 @@ def markdown(r: dict) -> str:
     ci = r["intervals"]
     lines += [
         f"| 95% interval (Callaway–Sant'Anna, teams resampled) | {pct(ci['throughput'][0])} to {pct(ci['throughput'][1])} | {pct(ci['rework'][0])} to {pct(ci['rework'][1])} | {pct(ci['cycle_time'][0])} to {pct(ci['cycle_time'][1])} |",
+        "",
+        "## Rework: before and after the paved road (review guardrails, conventions, hooks)",
+        "",
+        "| Phase | Estimate (Callaway–Sant'Anna) | Truth |",
+        "| --- | --- | --- |",
+        *[f"| {k} | {pct(v['estimate'])} | {pct(v['truth'])} |" for k, v in r["rework_phases"].items()],
         "",
         "## Rework by weeks since a team adopted",
         "",

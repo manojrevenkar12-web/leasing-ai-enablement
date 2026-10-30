@@ -226,6 +226,16 @@
       }
     ]
   },
+  "rework_phases": {
+    "first weeks": {
+      "estimate": 0.35044960406383047,
+      "truth": 0.45
+    },
+    "after the paved road": {
+      "estimate": -0.16528702777094373,
+      "truth": 0.050000000000000044
+    }
+  },
   "errors": {
     "throughput": {
       "before_after": 0.1324530637750451,
