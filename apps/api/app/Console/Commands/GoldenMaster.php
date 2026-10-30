@@ -134,7 +134,7 @@ class GoldenMaster extends Command
                     'total_cost_factor' => abs($q->totalCostFactor - $total) > 1e-9,
                     'residual_cents' => $q->residualValueCents !== $rv,
                 ]));
-                $outcome = $diff === [] ? null : ['fields' => $diff];
+                $outcome = $diff === [] ? null : ['fields' => $diff, 'new' => ['leasing_factor' => $q->leasingFactor, 'total_cost_factor' => $q->totalCostFactor]];
             } catch (UnsupportedTerms) {
                 $outcome = ['exception' => 'UnsupportedTerms'];
             }
@@ -143,7 +143,7 @@ class GoldenMaster extends Command
 
                 continue;
             }
-            $match = self::explain($approved, $case, $outcome);
+            $match = self::explain($approved, $case, $outcome, $c);
             if ($match !== null) {
                 $explained++;
                 $byChange[$match]++;
@@ -158,13 +158,16 @@ class GoldenMaster extends Command
     /**
      * The id of the approved change that explains this difference, if any. A change explains a
      * difference only when the case matches its selector AND the difference is exactly what it
-     * allows (the listed fields, or the listed exception).
+     * allows (the listed fields, or the listed exception) AND, if the change names an expected
+     * result, the new values are that result. Without the last part an approval would hide any
+     * error in the fields it allows (mutation testing found exactly that).
      *
      * @param  list<array<string, mixed>>  $approved
      * @param  array<string, mixed>  $case
      * @param  array<string, mixed>  $outcome
+     * @param  list<mixed>  $legacy  the fixture row
      */
-    private static function explain(array $approved, array $case, array $outcome): ?string
+    private static function explain(array $approved, array $case, array $outcome, array $legacy): ?string
     {
         foreach ($approved as $change) {
             foreach ($change['when'] as $k => $v) {
@@ -176,10 +179,34 @@ class GoldenMaster extends Command
                 return $change['id'];
             }
             if (isset($outcome['fields']) && array_diff($outcome['fields'], $change['allows']['fields'] ?? []) === []) {
-                return $change['id'];
+                $expected = isset($change['expect']) ? self::expected((string) $change['expect'], $legacy) : null;
+                if ($expected === null || $expected == array_intersect_key($outcome['new'], $expected)) {
+                    return $change['id'];
+                }
             }
         }
 
         return null;
+    }
+
+    /**
+     * What an approved change says the new values must be, computed from the legacy row.
+     *
+     * @param  list<mixed>  $row
+     * @return array<string, float>
+     */
+    private static function expected(string $rule, array $row): array
+    {
+        [, $months, , $down, $price, , $extra, $rate] = $row;
+        $vat = (float) config('leasing.vat_factor');
+
+        return match ($rule) {
+            // AC-1: same net rate as before, compared to the net price; one-off costs net as well.
+            'net-basis' => [
+                'leasing_factor' => round(($rate / 100) / ($price / 100 / $vat) * 100, 2),
+                'total_cost_factor' => round((($rate / 100) * $months + $down / 100 / $vat + $extra / 100 / $vat) / $months / ($price / 100 / $vat) * 100, 2),
+            ],
+            default => throw new RuntimeException("Unknown expectation {$rule} in approved changes"),
+        };
     }
 }

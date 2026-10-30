@@ -10,7 +10,6 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "infection/infection": "^0.29",
         "larastan/larastan": "^3.4",
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
@@ -37,7 +36,7 @@
         ],
         "test": "@php artisan test",
         "stan": "phpstan analyse --memory-limit=1G",
-        "mutate": "infection --threads=max --show-mutations --no-progress"
+        "mutate": "pest --mutate --parallel --min=85"
     },
     "extra": {
         "laravel": {
@@ -49,8 +48,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "infection/extension-installer": true
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "stable",

@@ -4,6 +4,7 @@
     "title": "Business offers: leasing factor and total cost factor compare net to net",
     "when": { "customer_type": "business" },
     "allows": { "fields": ["leasing_factor", "total_cost_factor"] },
+    "expect": "net-basis",
     "why": "legacy/rate_calc.php divided the net business rate by the gross list price, so business offers showed a factor 19% lower than the rate justified and ranked above private offers they were no cheaper than. Rates themselves are unchanged.",
     "found_by": "golden master, first verify run",
     "approved_by": "pricing owner (sign-off recorded in docs/playbooks/ai-refactoring.md)"

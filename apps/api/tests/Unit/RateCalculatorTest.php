@@ -7,6 +7,9 @@ use App\Domain\Leasing\ResidualValues;
 use App\Domain\Leasing\Segment;
 use App\Domain\Leasing\UnsupportedTerms;
 
+// Mutation testing (composer mutate): these tests answer for the domain classes.
+mutates(RateCalculator::class, ResidualValues::class, LeasingTerms::class, App\Domain\Leasing\Quote::class, CustomerType::class);
+
 function calculator(float $apr = 4.99): RateCalculator
 {
     return new RateCalculator(new ResidualValues(config('leasing.residual_values')), $apr, 1.19);
@@ -93,4 +96,10 @@ it('exports a quote for the API', function () {
         'residual_value_cents' => 1865640,
         'net' => false,
     ]);
+});
+
+it('accepts the smallest positive term and mileage', function () {
+    $t = new LeasingTerms(1, 1, 0, 0, CustomerType::Private);
+
+    expect([$t->months, $t->kmPerYear])->toBe([1, 1]);
 });

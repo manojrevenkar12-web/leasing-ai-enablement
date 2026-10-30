@@ -24,8 +24,8 @@ final readonly class RateCalculator
     {
         return new self(
             ResidualValues::fromConfig(),
-            (float) config('leasing.apr_percent'),
-            (float) config('leasing.vat_factor'),
+            (float) config('leasing.apr_percent'), // @pest-mutate-ignore equivalent: the config value is a float already
+            (float) config('leasing.vat_factor'), // @pest-mutate-ignore equivalent: the config value is a float already
         );
     }
 
@@ -68,6 +68,6 @@ final readonly class RateCalculator
 
     private static function cents(float $euros): int
     {
-        return (int) round($euros * 100);
+        return (int) round($euros * 100); // @pest-mutate-ignore equivalent: an integral float is coerced to the same int
     }
 }

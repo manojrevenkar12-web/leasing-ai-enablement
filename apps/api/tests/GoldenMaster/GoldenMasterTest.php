@@ -3,6 +3,8 @@
 use App\Console\Commands\GoldenMaster;
 use App\Domain\Leasing\RateCalculator;
 
+mutates(RateCalculator::class);
+
 it('reproduces every legacy quote except where an approved change says otherwise', function () {
     $result = GoldenMaster::verify(app(RateCalculator::class), base_path(GoldenMaster::FIXTURE), base_path(GoldenMaster::APPROVED));
 
