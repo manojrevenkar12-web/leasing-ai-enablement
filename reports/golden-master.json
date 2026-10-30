@@ -1,0 +1,10 @@
+{
+    "total": 10240,
+    "identical": 4096,
+    "explained": 6144,
+    "by_change": {
+        "AC-1": 4096,
+        "AC-2": 2048
+    },
+    "unapproved": []
+}

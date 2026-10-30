@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $km_per_year
  * @property int $down_payment_cents
  * @property int $extra_costs_cents
+ * @property int|null $discount_cents
  * @property int $monthly_rate_cents
  * @property string $leasing_factor
  * @property string $total_cost_factor
@@ -39,7 +40,7 @@ class Offer extends Model
     public const PAUSED = 'paused';
 
     protected $fillable = [
-        'vehicle_id', 'customer_type', 'term_months', 'km_per_year', 'down_payment_cents', 'extra_costs_cents', 'status',
+        'vehicle_id', 'customer_type', 'term_months', 'km_per_year', 'down_payment_cents', 'extra_costs_cents', 'discount_cents', 'status',
     ];
 
     protected $attributes = ['status' => self::ACTIVE];
@@ -52,6 +53,7 @@ class Offer extends Model
             'km_per_year' => 'integer',
             'down_payment_cents' => 'integer',
             'extra_costs_cents' => 'integer',
+            'discount_cents' => 'integer',
             'monthly_rate_cents' => 'integer',
             'leasing_factor' => 'decimal:2',
             'total_cost_factor' => 'decimal:2',
@@ -95,6 +97,7 @@ class Offer extends Model
             $this->down_payment_cents,
             $this->extra_costs_cents,
             $this->customer_type,
+            $this->discount_cents ?? 0,
         );
     }
 

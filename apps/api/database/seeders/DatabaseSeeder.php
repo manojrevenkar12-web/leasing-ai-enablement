@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
                                 'customer_type' => $type,
                                 'term_months' => $term,
                                 'km_per_year' => fake()->randomElement([10000, 15000, 20000]),
+                                // dealer discounts of 8 to 28% on the list price, as on real leasing portals
+                                'discount_cents' => (int) round($vehicle->list_price_cents * mt_rand(8, 28) / 100),
                             ]);
                             $offer->dealer()->associate($dealer);
                             $offer->vehicle()->associate($vehicle);

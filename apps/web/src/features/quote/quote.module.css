@@ -1,0 +1,143 @@
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--gutter) var(--space-8);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.back {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  justify-self: start;
+}
+
+.head {
+  display: grid;
+  gap: var(--space-2);
+  max-width: var(--measure);
+}
+
+.title {
+  font-size: var(--text-hero);
+}
+
+.sub {
+  margin: 0;
+  font-weight: var(--weight-medium);
+}
+
+.dealer {
+  margin: 0;
+  color: var(--color-ink-muted);
+}
+
+.calculator {
+  background: var(--color-surface);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 60rem) {
+  .calculator {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .heading {
+    grid-column: 1 / -1;
+  }
+}
+
+.heading {
+  font-size: var(--text-xl);
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.controls > fieldset > div {
+  flex-wrap: wrap;
+}
+
+.range {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rangeLabel {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.rangeLabel strong {
+  color: var(--color-ink);
+}
+
+.range input {
+  accent-color: var(--color-accent);
+  width: 100%;
+}
+
+.result {
+  background: var(--color-page);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.resultGrid {
+  display: grid;
+  gap: var(--space-4);
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.resultGrid[data-stale] {
+  opacity: 0.6;
+}
+
+.rate {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+}
+
+.rateUnit {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3);
+}
+
+.facts dt {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: var(--weight-medium);
+}
+
+.error {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  color: var(--color-danger);
+}
+
+.error p {
+  margin: 0;
+}

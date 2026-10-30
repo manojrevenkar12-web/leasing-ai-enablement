@@ -103,3 +103,16 @@ it('accepts the smallest positive term and mileage', function () {
 
     expect([$t->months, $t->kmPerYear])->toBe([1, 1]);
 });
+
+it('lowers the rate with a dealer discount, keeping the residual value on the list price', function () {
+    $plain = calculator()->quote(3331500, Segment::Compact, terms());
+    $discounted = calculator()->quote(3331500, Segment::Compact, new LeasingTerms(36, 10000, 0, 0, CustomerType::Private, 666300));
+
+    expect($discounted->residualValueCents)->toBe($plain->residualValueCents)
+        ->and($discounted->monthlyRateCents)->toBeLessThan($plain->monthlyRateCents)
+        ->and($discounted->leasingFactor)->toBeLessThan($plain->leasingFactor);
+});
+
+it('rejects a negative discount', function () {
+    new LeasingTerms(36, 10000, 0, 0, CustomerType::Private, -1);
+})->throws(InvalidArgumentException::class);

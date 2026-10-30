@@ -34,7 +34,11 @@ final readonly class RateCalculator
         $price = $listPriceCents / 100;
         $residual = round($price * $this->residualValues->percent($segment, $terms->months, $terms->kmPerYear) / 100, 2);
 
-        $rate = max(0.0, $this->annuity($price - $terms->downPaymentCents / 100, $residual, $terms->months));
+        // The dealer's discount lowers what is financed; the residual value is still a share of
+        // the list price. That is why discounted cars lease cheaply. Without a discount this is
+        // exactly the legacy formula.
+        $financed = $price - $terms->discountCents / 100 - $terms->downPaymentCents / 100;
+        $rate = max(0.0, $this->annuity($financed, $residual, $terms->months));
         $down = $terms->downPaymentCents / 100;
         $extra = $terms->extraCostsCents / 100;
         $basePrice = $price;

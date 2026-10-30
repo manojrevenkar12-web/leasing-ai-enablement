@@ -16,12 +16,14 @@ final readonly class LeasingTerms
         public int $downPaymentCents,
         public int $extraCostsCents,
         public CustomerType $customerType,
+        /** dealer discount on the list price (Händlerrabatt), gross; the residual value stays on the list price */
+        public int $discountCents = 0,
     ) {
         if ($months <= 0 || $kmPerYear <= 0) {
             throw new InvalidArgumentException('Term and mileage must be positive.');
         }
-        if ($downPaymentCents < 0 || $extraCostsCents < 0) {
-            throw new InvalidArgumentException('Down payment and extra costs cannot be negative.');
+        if ($downPaymentCents < 0 || $extraCostsCents < 0 || $discountCents < 0) {
+            throw new InvalidArgumentException('Down payment, extra costs and discount cannot be negative.');
         }
     }
 }

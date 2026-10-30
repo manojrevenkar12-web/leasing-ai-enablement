@@ -27,6 +27,7 @@ class OfferFactory extends Factory
             'km_per_year' => fake()->randomElement([10000, 15000, 20000]),
             'down_payment_cents' => fake()->randomElement([0, 0, 99900, 199900, 299900]),
             'extra_costs_cents' => fake()->randomElement([79000, 89900, 109000, 129000]),
+            'discount_cents' => 0,
             'status' => Offer::ACTIVE,
         ];
     }

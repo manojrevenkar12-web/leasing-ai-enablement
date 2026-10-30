@@ -1,0 +1,161 @@
+.header {
+  background: var(--color-surface);
+  border-bottom: var(--border);
+}
+
+.headerInner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-display);
+  text-decoration: none;
+  color: var(--color-accent);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--color-ink-muted);
+}
+
+.nav a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.state {
+  background: var(--color-surface);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6) var(--space-5);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+.stateTitle {
+  font-size: var(--text-lg);
+}
+
+.stateText {
+  margin: 0;
+  color: var(--color-ink-muted);
+  max-width: var(--measure);
+}
+
+.button {
+  font: inherit;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.button:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.buttonQuiet {
+  composes: button;
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.buttonQuiet:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+  border-color: var(--color-accent);
+}
+
+.button:disabled,
+.buttonQuiet:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--color-sunken), var(--color-surface), var(--color-sunken));
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: shimmer 1.4s linear infinite;
+  min-height: 1em;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.fieldLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-muted);
+  padding: 0;
+  margin-bottom: var(--space-1);
+}
+
+.segmented {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.segmentedTrack {
+  display: inline-flex;
+  background: var(--color-sunken);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 2px;
+}
+
+.segment {
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.segment[data-active] {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-weight: var(--weight-medium);
+  box-shadow: var(--shadow-raised);
+}
+
+.segment:has(input:focus-visible) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}

@@ -10,6 +10,7 @@ export interface Offer {
   km_per_year: number;
   down_payment_cents: number;
   extra_costs_cents: number;
+  discount_cents: number;
   monthly_rate_cents: number;
   leasing_factor: number;
   total_cost_factor: number;
@@ -28,6 +29,7 @@ export interface Quote {
   km_per_year: number;
   down_payment_cents: number;
   extra_costs_cents: number;
+  discount_cents: number;
   monthly_rate_cents: number;
   leasing_factor: number;
   total_cost_factor: number;

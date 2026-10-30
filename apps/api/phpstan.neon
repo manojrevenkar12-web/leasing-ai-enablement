@@ -6,6 +6,5 @@ parameters:
     paths:
         - app
         - routes
-        - database
     excludePaths:
         - legacy

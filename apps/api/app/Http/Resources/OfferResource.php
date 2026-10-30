@@ -20,6 +20,7 @@ class OfferResource extends JsonResource
             'km_per_year' => $this->km_per_year,
             'down_payment_cents' => $this->down_payment_cents,
             'extra_costs_cents' => $this->extra_costs_cents,
+            'discount_cents' => $this->discount_cents ?? 0,
             'monthly_rate_cents' => $this->monthly_rate_cents,
             'leasing_factor' => (float) $this->leasing_factor,
             'total_cost_factor' => (float) $this->total_cost_factor,

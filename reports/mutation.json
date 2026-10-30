@@ -1,0 +1,8 @@
+{
+  "score_percent": 100,
+  "tested": 95,
+  "timeout": 6,
+  "untested": 0,
+  "min_percent": 85,
+  "target": "app/Domain (RateCalculator, ResidualValues, LeasingTerms, Quote, CustomerType)"
+}

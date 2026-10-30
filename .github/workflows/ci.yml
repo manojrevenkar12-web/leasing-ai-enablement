@@ -1,0 +1,77 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: API (Pest, golden master, mutation gate, Larastan)
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/api } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '8.3', coverage: pcov, tools: composer:v2 }
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: cp .env.example .env && php artisan key:generate
+      - name: Tests
+        run: php artisan test --parallel
+      - name: Golden master (no unapproved difference from the legacy calculator)
+        run: php artisan leasing:golden-master --verify
+      - name: Mutation score gate (config/quality.json)
+        run: php vendor/bin/pest --mutate --parallel --min=$(jq .refactor_gate.mutation_score_min_percent ../../config/quality.json)
+      - name: Larastan
+        run: composer stan
+
+  packages:
+    name: Reviewer, MCP server, hooks, web unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '8.3', coverage: none }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Reviewer benchmark replays (the pinned first run is not rewritten)
+        run: npx tsx packages/reviewer/src/bench/run.ts score
+
+  adoption:
+    name: Adoption experiment
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: experiments/adoption } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -e '.[test]'
+      - run: pytest -q
+
+  e2e:
+    name: Web end to end (real API, production build, axe)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: '8.3', coverage: none, tools: composer:v2 }
+      - run: composer install --no-interaction --no-progress --prefer-dist
+        working-directory: apps/api
+      - run: cp .env.example .env && php artisan key:generate
+        working-directory: apps/api
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+        working-directory: apps/web
+      - run: npm run build
+        working-directory: apps/web
+      - run: npx playwright test
+        working-directory: apps/web
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: { name: playwright-report, path: apps/web/test-results, if-no-files-found: ignore }

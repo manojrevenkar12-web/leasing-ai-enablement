@@ -21,6 +21,7 @@ class DealerOfferRequest extends FormRequest
             'km_per_year' => [$required, 'integer', Rule::in(config('leasing.mileages_km'))],
             'down_payment_cents' => [$required, 'integer', 'min:0', 'max:5000000'],
             'extra_costs_cents' => [$required, 'integer', 'min:0', 'max:500000'],
+            'discount_cents' => ['sometimes', 'integer', 'min:0', 'max:3000000'],
             'status' => ['sometimes', Rule::in([Offer::ACTIVE, Offer::PAUSED])],
             // Rates are computed, never accepted from the client.
             'monthly_rate_cents' => ['prohibited'],

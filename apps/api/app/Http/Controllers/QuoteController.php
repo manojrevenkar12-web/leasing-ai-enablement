@@ -21,6 +21,7 @@ class QuoteController
             (int) $v['down_payment_cents'],
             $offer->extra_costs_cents,
             $offer->customer_type,
+            $offer->discount_cents ?? 0,
         );
         $quote = $calculator->quote($offer->vehicle->list_price_cents, $offer->vehicle->segment, $terms);
 
@@ -30,6 +31,7 @@ class QuoteController
             'km_per_year' => $terms->kmPerYear,
             'down_payment_cents' => $terms->downPaymentCents,
             'extra_costs_cents' => $terms->extraCostsCents,
+            'discount_cents' => $terms->discountCents,
             ...$quote->toArray(),
         ]]);
     }
