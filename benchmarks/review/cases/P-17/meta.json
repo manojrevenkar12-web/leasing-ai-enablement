@@ -1,0 +1,14 @@
+{
+  "id": "P-17",
+  "title": "Rate range for the budget slider",
+  "description": "The budget slider shows a fixed 0 to 2,000 EUR range. New `GET /api/offers/rate-range` returns the lowest and highest monthly rate (in cents) among the offers matching the current filters, cached like the search. Budget, sort and page do not narrow the range. Tests added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 75,
+      "category": "cache-key",
+      "explanation": "The cache key contains only customer_type, make and model, but the query also filters by fuel, term and km, so e.g. term=24 and term=48 share one cached range and get whichever was computed first."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "P-23",
+  "title": "Makes list: validate the customer type",
+  "description": "The makes endpoint treated any customer_type other than \"business\" as private, so ?customer_type=fleet silently returned private makes. It now validates with a FormRequest like the search and rejects unknown values. Test added.",
+  "kind": "clean",
+  "defects": []
+}

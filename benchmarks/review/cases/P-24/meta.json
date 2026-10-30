@@ -1,0 +1,14 @@
+{
+  "id": "P-24",
+  "title": "Makes list: most popular makes first",
+  "description": "The make dropdown is alphabetical, so the makes customers actually look at are far down. The makes endpoint now orders by number of offers, most first, and alphabetically on ties. Test added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 61,
+      "category": "logic",
+      "explanation": "orderBy('offers') sorts ascending, so the makes with the fewest offers come first; it needs 'desc' (the new test compares with toEqual, which ignores key order, so it passes anyway)."
+    }
+  ]
+}

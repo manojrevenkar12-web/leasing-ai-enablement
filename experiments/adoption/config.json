@@ -1,0 +1,9 @@
+{
+  "seed": 20261030,
+  "weeks": 32,
+  "teams": 24,
+  "engineers_per_team": [4, 9],
+  "rollout_weeks": [8, 14, 20],
+  "never_adopt": 5,
+  "notes": "Analysts' settings. The simulated world (true effects, confounding, shocks) is in world.json and only sim.py and evaluate.py read it."
+}

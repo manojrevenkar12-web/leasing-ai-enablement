@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "leasing-codebase": {
+      "command": "npx",
+      "args": ["tsx", "packages/mcp/src/server.ts"],
+      "env": { "LEASING_REPO_ROOT": "." }
+    }
+  }
+}

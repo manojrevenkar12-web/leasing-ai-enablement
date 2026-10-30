@@ -1,0 +1,7 @@
+{
+  "id": "P-10",
+  "title": "Index the total-cost and newest sorts",
+  "description": "sort=total and sort=newest show up as full scans in the slow-query log since the catalogue passed 50k offers. Adds (status, customer_type, total_cost_factor) and (status, customer_type, created_at) indexes, matching the existing ones for the factor and rate sorts. Additive only.",
+  "kind": "clean",
+  "defects": []
+}

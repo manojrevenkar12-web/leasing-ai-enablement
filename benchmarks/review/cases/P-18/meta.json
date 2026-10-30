@@ -1,0 +1,14 @@
+{
+  "id": "P-18",
+  "title": "Dealer API: push offers without our ids",
+  "description": "Dealer management systems push their whole stock every night and do not want to keep our offer ids. New `POST /api/dealer/offers/upsert`: same vehicle, customer type, term and mileage is the same offer and is updated; otherwise a new offer is created for the dealer. Validated with DealerOfferRequest. Tests added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/DealerOfferController.php",
+      "line": 38,
+      "category": "ownership",
+      "explanation": "firstOrNew does not include dealer_id, so a push matches and overwrites another dealer's offer for the same vehicle and terms, without the OfferPolicy check."
+    }
+  ]
+}

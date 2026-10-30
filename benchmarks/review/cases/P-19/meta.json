@@ -1,0 +1,7 @@
+{
+  "id": "P-19",
+  "title": "Telemetry: record response size",
+  "description": "To size the CDN tier we need to know how much each endpoint sends. The request log line now includes `response_bytes` (0 for 304s and streamed responses). Test added.",
+  "kind": "clean",
+  "defects": []
+}

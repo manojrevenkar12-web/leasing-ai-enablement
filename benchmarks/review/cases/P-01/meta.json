@@ -1,0 +1,14 @@
+{
+  "id": "P-01",
+  "title": "Search: filter by maximum down payment",
+  "description": "Adds `max_down_eur` to the offer search so customers who do not want to put money down can hide offers with a large down payment. Validated in SearchOffersRequest (0 to 50,000 EUR, integers only); applied as `down_payment_cents <= max * 100`. Tests for the filter and for rejected values.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 35,
+      "category": "cache-key",
+      "explanation": "The new filter is read straight from the request instead of going into SearchOffersRequest::filters(), so it is not part of OfferCatalog::key(): a search with max_down_eur shares the cache entry of the same search without it, and whichever runs first is served to both."
+    }
+  ]
+}

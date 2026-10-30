@@ -1,0 +1,14 @@
+{
+  "id": "P-08",
+  "title": "Search: find offers by a word in the variant",
+  "description": "Customers search for \"GTI\", \"Business\" or \"Sport\". Adds a `variant` text filter (2 to 120 characters) to the search; it is in filters(), so it is part of the cache key, and matches anywhere in the variant, ignoring case. Tests added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 87,
+      "category": "sql-injection",
+      "explanation": "The user's text is concatenated into the SQL (addslashes is not a safe escape for every driver or charset) instead of being bound: use whereRaw('lower(vehicles.variant) like ?', ['%'.$variant.'%'])."
+    }
+  ]
+}

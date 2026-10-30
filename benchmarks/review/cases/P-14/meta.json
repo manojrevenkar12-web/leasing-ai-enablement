@@ -1,0 +1,14 @@
+{
+  "id": "P-14",
+  "title": "Search: maximum term filter",
+  "description": "Many customers do not want to commit for more than a certain time. Adds `max_term` (one of the configured terms) to the search, in filters() so it is cached separately, returning offers with a term of at most that many months. Tests added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 91,
+      "category": "logic",
+      "explanation": "Uses `<` instead of `<=`, so max_term=36 excludes 36-month offers although the filter means \"at most 36 months\" (the test only checks 24 and 48)."
+    }
+  ]
+}

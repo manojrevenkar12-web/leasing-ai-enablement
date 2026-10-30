@@ -1,0 +1,14 @@
+{
+  "id": "P-13",
+  "title": "Drop the unused residual value column from offers",
+  "description": "offers.residual_value_cents was stored for a dealer export that was switched off in August. Nothing reads it and it can always be recomputed (the quote endpoint does). Migration drops it; Offer no longer writes it. Test checks the column is gone.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/database/migrations/2026_11_03_000200_drop_residual_value_from_offers.php",
+      "line": 17,
+      "category": "destructive-migration",
+      "explanation": "Drops the column in the same release that stops writing it: while the migration runs and old instances are still serving, their saves write residual_value_cents and fail. Stop writing it first and drop the column in a later release."
+    }
+  ]
+}

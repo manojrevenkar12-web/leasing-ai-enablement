@@ -1,0 +1,14 @@
+{
+  "id": "P-06",
+  "title": "Makes list: include the models that have offers",
+  "description": "The model dropdown is filled from a separate call today and offers models with no offers. The makes endpoint now returns, per make, the models that have an active offer for the customer type, so both dropdowns come from one cached response. Test updated.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 67,
+      "category": "n-plus-one",
+      "explanation": "Runs one extra query per make inside the map (a query in a loop); the models should come from one grouped query over the same join."
+    }
+  ]
+}

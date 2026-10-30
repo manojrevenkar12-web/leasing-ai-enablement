@@ -1,0 +1,7 @@
+{
+  "id": "P-07",
+  "title": "Search: filter by the dealer's city",
+  "description": "Customers want to pick the car up nearby. Adds `city` to the offer search (trimmed and lower-cased in filters() like make and model, so it is part of the cache key), matched case-insensitively against the dealer's city with a bound parameter. Tests for the filter and for cache separation.",
+  "kind": "clean",
+  "defects": []
+}

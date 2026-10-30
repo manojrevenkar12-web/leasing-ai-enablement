@@ -1,0 +1,19 @@
+[project]
+name = "adoption"
+version = "1.0.0"
+description = "Measure what AI coding tools do to engineering teams: a staggered rollout, analysed the way that recovers the truth"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0", "pandas>=2.2"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["adoption"]

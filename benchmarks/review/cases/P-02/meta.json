@@ -1,0 +1,7 @@
+{
+  "id": "P-02",
+  "title": "Search: sort by engine power",
+  "description": "Adds `sort=power` (most powerful first) to the offer search, for the sports-car landing page. vehicles is already joined, so it is one more entry in the ORDER map plus the allowed sort values; offers.id stays the tie-breaker. Test included.",
+  "kind": "clean",
+  "defects": []
+}

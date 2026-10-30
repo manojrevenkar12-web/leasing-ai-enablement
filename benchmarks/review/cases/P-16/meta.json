@@ -1,0 +1,14 @@
+{
+  "id": "P-16",
+  "title": "Telemetry: mark throttled requests",
+  "description": "When an integration hits the rate limit we cannot tell from the telemetry who it was. The request log line now gets a `throttled` field on 429 responses, identifying the client, so a throttled integration can be told apart from anonymous traffic. Test added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Middleware/RecordTelemetry.php",
+      "line": 45,
+      "category": "sensitive-log",
+      "explanation": "Writes the raw bearer token of a throttled dealer into the telemetry log; logs must never contain tokens (log the dealer id or a hash instead)."
+    }
+  ]
+}

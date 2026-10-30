@@ -1,0 +1,14 @@
+{
+  "id": "P-22",
+  "title": "Search: filter by vehicle segment",
+  "description": "The new category tiles (small car, compact, SUV, EV) link to the search by segment. Adds `segment` to the search; it is normalised in filters(), so it is part of the cache key. Test added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Requests/SearchOffersRequest.php",
+      "line": 21,
+      "category": "validation",
+      "explanation": "Accepts any string as segment instead of Rule::enum(Segment::class), so an unknown value such as segment=van returns an empty 200 instead of a 422."
+    }
+  ]
+}

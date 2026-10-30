@@ -1,0 +1,14 @@
+{
+  "id": "P-05",
+  "title": "Search: tell the client whether there are more pages",
+  "description": "The new infinite-scroll list on mobile has to work out from page/last_page whether to load more, and gets it wrong on empty results. The search meta now includes `has_more`. Existing pagination test extended.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/OfferSearchController.php",
+      "line": 105,
+      "category": "logic",
+      "explanation": "`currentPage() <= lastPage()` is true on the last page too (and on an empty result, where both are 1), so has_more is always true and the client keeps requesting; it should be `<` (or hasMorePages())."
+    }
+  ]
+}

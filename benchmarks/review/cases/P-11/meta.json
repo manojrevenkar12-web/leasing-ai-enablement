@@ -1,0 +1,14 @@
+{
+  "id": "P-11",
+  "title": "Search: keep old sort names working",
+  "description": "Partner widgets and bookmarked links still use the sort names of the old search (cheapest, price, best_deal, date) and get a 422 today. SearchOffersRequest now maps them onto the current sorts before validation. Tests for every alias.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Requests/SearchOffersRequest.php",
+      "line": 31,
+      "category": "validation",
+      "explanation": "Any unknown sort value is silently rewritten to 'factor', so typos and garbage pass validation with a 200 instead of a 422 (the PR also drops the test that rejected an unknown sort); only the listed aliases should be mapped."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "P-03",
+  "title": "Quote: show the total cost over the term",
+  "description": "The quote panel wants a \"total cost\" line. The quote endpoint now also returns `total_cost_cents`: all monthly rates plus the down payment and the one-off costs, in cents like every other amount. Test added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/QuoteController.php",
+      "line": 39,
+      "category": "money",
+      "explanation": "For business offers the rate from the calculator is net, but LeasingTerms holds the down payment and extra costs gross (as dealers enter them), so the total adds a net rate to gross amounts and is neither the net nor the gross total."
+    }
+  ]
+}

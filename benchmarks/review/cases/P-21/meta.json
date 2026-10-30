@@ -1,0 +1,14 @@
+{
+  "id": "P-21",
+  "title": "Dealer dashboard: show which offers are undercut",
+  "description": "Dealers ask why their offers rank low. New `GET /api/dealer/offers/benchmark` lists the dealer's active offers with the best leasing factor any other dealer has for the same vehicle and terms, and whether they are undercut. Test included.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/DealerOfferController.php",
+      "line": 38,
+      "category": "n-plus-one",
+      "explanation": "Runs one min() query per offer inside the map; a dealer with hundreds of offers makes hundreds of queries. Compute the best factors in one grouped query."
+    }
+  ]
+}

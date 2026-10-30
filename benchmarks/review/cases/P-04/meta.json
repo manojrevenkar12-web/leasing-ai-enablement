@@ -1,0 +1,14 @@
+{
+  "id": "P-04",
+  "title": "Dealer API: fetch one of your own offers",
+  "description": "The DMS edit form needs to load a single offer, paused ones included, which the public endpoint hides. New `GET /api/dealer/offers/{offer}`, authorized through OfferPolicy (a dealer sees exactly the offers it may change). The DMS polls it, so it supports ETags and answers 304 when nothing changed. Tests for own, foreign and unauthenticated access.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/DealerOfferController.php",
+      "line": 37,
+      "category": "ownership",
+      "explanation": "HttpCache::json marks the response `public, max-age=60`, so a CDN or shared proxy may cache this authenticated dealer response and serve one dealer's offer (including paused ones) to anyone requesting the same URL; the OfferPolicy check is bypassed by the cache. Dealer responses must be private/no-store."
+    }
+  ]
+}

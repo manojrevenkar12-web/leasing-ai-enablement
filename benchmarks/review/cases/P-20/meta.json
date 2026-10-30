@@ -1,0 +1,14 @@
+{
+  "id": "P-20",
+  "title": "Dealer API: accept amounts in euros",
+  "description": "Most dealer management systems export amounts in euros (\"1999.90\"). DealerOfferRequest now also accepts down_payment_eur and extra_costs_eur and converts them to cents before validation; the cents fields win if both are sent, and the usual cents rules still apply. Tests added.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Requests/DealerOfferRequest.php",
+      "line": 22,
+      "category": "money",
+      "explanation": "Converts euros to cents with float multiplication and an int cast, which truncates: 19.99 becomes 1998 cents and 0.29 becomes 28; amounts must be parsed exactly (or at least rounded), and more than two decimals should be rejected."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "P-09",
+  "title": "Dealer API: allow pausing offers whose terms are no longer priced",
+  "description": "Since 30,000 km was withdrawn for some segments, every save of an affected offer throws UnsupportedTerms while repricing, so dealers cannot even pause those offers (they stay live with a rate we no longer stand behind). Update now lets dealers pause such offers. Test included.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Http/Controllers/DealerOfferController.php",
+      "line": 35,
+      "category": "swallowed-error",
+      "explanation": "The exception aborts the save, but it is only reported and the endpoint returns 200 with the in-memory (unsaved) attributes, so the dealer sees status \"paused\" while the offer stays active and unchanged in the database."
+    }
+  ]
+}

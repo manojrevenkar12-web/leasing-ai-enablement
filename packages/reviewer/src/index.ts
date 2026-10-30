@@ -1,0 +1,11 @@
+export { parseDiff, numbered, inDiff } from './diff.js';
+export type { FileDiff, Hunk } from './diff.js';
+export { rules, runRules, methods } from './rules/index.js';
+export { guard, anchored } from './guard.js';
+export { review, loadConfig, conventionsFrom } from './review.js';
+export { buildRequest, parseAnswer, SYSTEM, SCHEMA } from './llm/prompt.js';
+export { AnthropicProvider, OpenAIProvider, ReplayProvider, RecordingProvider, providerFromEnv, requestKey } from './llm/provider.js';
+export type { ModelProvider, ModelRequest } from './llm/provider.js';
+export { GitHub, renderComment, summarise } from './github.js';
+export { localInput } from './local.js';
+export type * from './types.js';

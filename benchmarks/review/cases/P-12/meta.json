@@ -1,0 +1,14 @@
+{
+  "id": "P-12",
+  "title": "EV campaign APR from the dealer bank",
+  "description": "The dealer bank finances EVs at 3.99% APR from 1 November. Adds `apr_percent_by_segment` to config/leasing.php and lets RateCalculator use a segment's APR when one is configured, falling back to apr_percent. The constructor argument is optional, so existing callers are unchanged.",
+  "kind": "defect",
+  "defects": [
+    {
+      "file": "apps/api/app/Domain/Leasing/RateCalculator.php",
+      "line": 43,
+      "category": "pricing-change",
+      "explanation": "This changes every EV quote and stored EV rate, but there is no test for it and no entry in approved-changes.json with the pricing owner's sign-off, so the golden master will fail or be re-recorded."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "P-15",
+  "title": "Dealer API: an offer's customer type cannot change",
+  "description": "Switching an existing offer between private and business moves its price between gross and net under the same id, which breaks saved searches and the price history. PATCH now refuses customer_type; dealers create a second offer instead. Creating still requires it. Test included.",
+  "kind": "clean",
+  "defects": []
+}
