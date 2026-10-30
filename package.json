@@ -2,7 +2,7 @@
   "name": "leasing-ai-enablement",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*"],
+  "workspaces": ["packages/*", "apps/web"],
   "engines": { "node": ">=22" },
   "scripts": {
     "test": "npm test --workspaces --if-present",

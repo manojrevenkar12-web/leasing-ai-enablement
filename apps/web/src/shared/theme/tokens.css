@@ -1,0 +1,68 @@
+/* Design tokens. Components use these variables only: no raw colours, sizes or durations. */
+:root {
+  /* colour: cool road grey, white surfaces, road-sign blue as the one accent */
+  --color-page: #eef2f5;
+  --color-surface: #ffffff;
+  --color-sunken: #e3e9ee;
+  --color-ink: #121b24;
+  --color-ink-muted: #475563; /* 7.2:1 on white */
+  --color-line: #d3dbe2;
+  --color-line-strong: #a9b6c1;
+  --color-accent: #1b4f9c; /* 7.6:1 on white */
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #dde7f5;
+  --color-focus: #1b4f9c;
+  /* factor quality: only on the factor scale and its label */
+  --color-deal: #1d6b44; /* 6.4:1 */
+  --color-fair: #8a5a00; /* 5.9:1 */
+  --color-steep: #9c3324; /* 6.6:1 */
+  --color-danger: #9c3324;
+
+  /* type */
+  --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans Variable', 'Segoe UI', system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-hero: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --leading-tight: 1.1;
+  --leading-body: 1.55;
+  --weight-regular: 400;
+  --weight-medium: 520;
+  --weight-bold: 680;
+  --tracking-display: -0.02em;
+
+  /* space (4px grid) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --gutter: var(--space-4);
+  --measure: 68ch;
+  --page-max: 72rem;
+
+  /* shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+  --border: 1px solid var(--color-line);
+  --shadow-raised: 0 1px 0 var(--color-line), 0 8px 24px -16px rgb(18 27 36 / 0.35);
+
+  /* motion */
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: var(--space-6);
+  }
+}
